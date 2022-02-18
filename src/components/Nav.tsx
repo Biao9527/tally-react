@@ -23,7 +23,7 @@ const NavWrapper = styled.nav`
 
     }
 
-    > .selected {
+    .selected {
       color: #ff852a;
     }
   }
