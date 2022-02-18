@@ -3,9 +3,10 @@ import {
   HashRouter as Router,
   Routes,
   Route,
-  Link, Navigate
+  Navigate
 } from 'react-router-dom';
 import styled from 'styled-components';
+import Nav from './components/Nav';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -16,17 +17,7 @@ const Main = styled.div`
   flex-grow: 1;
   overflow: auto;
 `;
-const Nav = styled.nav`
-  >ul{
-    display: flex;
-    >li{
-      width: 33.3333%;
-      text-align: center;
-      padding: 16px 0;
-      color: #999999;
-    }
-  }
-`
+
 export default function App() {
   return (
     <Router>
@@ -40,19 +31,7 @@ export default function App() {
             <Route path="*" element={<NoMatch/>}/>
           </Routes>
         </Main>
-        <Nav>
-          <ul>
-            <li>
-              <Link to="/tags">Tags</Link>
-            </li>
-            <li>
-              <Link to="/money">Money</Link>
-            </li>
-            <li>
-              <Link to="/statistics">Statistics</Link>
-            </li>
-          </ul>
-        </Nav>
+        <Nav/>
       </Wrapper>
     </Router>
   );
