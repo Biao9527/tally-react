@@ -70,7 +70,30 @@ const NotesSection = styled.section`
   
 `;
 const CategorySection = styled.section`
-
+  >ul{
+    display: flex;
+    font-size: 20px;
+    text-align: center;
+    background: #ff6200;
+    color: #f0e0dc;
+    >li{
+      width: 50%;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      &.selected::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background: #333333;
+      }
+    }
+  }
 `;
 const NumberPadSection = styled.section`
 
@@ -78,6 +101,12 @@ const NumberPadSection = styled.section`
 const Money = () => {
   return (
     <Layout>
+      <CategorySection>
+        <ul>
+          <li className='selected'>支出</li>
+          <li>收入</li>
+        </ul>
+      </CategorySection>
       <TagsSection>
         <div className="new">
           <button>新增标签</button>
@@ -99,12 +128,6 @@ const Money = () => {
           <input type="text" placeholder='在这里输入备注'/>
         </label>
       </NotesSection>
-      <CategorySection>
-        <ul>
-          <li>支出</li>
-          <li>收入</li>
-        </ul>
-      </CategorySection>
       <NumberPadSection>
         <div>100</div>
         <div className="buttons">
