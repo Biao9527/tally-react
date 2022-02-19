@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+import React from 'react';
+import Icon from '../../components/Icon';
 
-const NotesSection = styled.section`
+const Wrapper = styled.section`
   display: flex;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -34,7 +36,19 @@ const NotesSection = styled.section`
     }
 
   }
-
 `;
 
-export {NotesSection}
+const NotesSection: React.FC = () => {
+  return (
+    <Wrapper>
+      <label>
+          <span>
+            <Icon name="remark"/>
+            备注：
+          </span>
+        <input type="text" placeholder="在这里输入备注"/>
+      </label>
+    </Wrapper>
+  );
+};
+export {NotesSection};
