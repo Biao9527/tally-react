@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import Icon from '../../components/Icon';
 
 const Wrapper = styled.section`
@@ -38,15 +38,13 @@ const Wrapper = styled.section`
   }
 `;
 
-const NoteSection: React.FC = () => {
-  const refInput = useRef<HTMLInputElement>(null)
-  const [note,setNote] = useState('')
-  const onBlur = ()=>{
-    if (refInput.current){
-      setNote(refInput.current.value)
-    }
-  }
-  console.log(note);
+type Props = {
+  value:string
+  onChange:(string:string)=>void
+}
+
+const NoteSection: React.FC<Props> = (props) => {
+  const note = props.value
   return (
     <Wrapper>
       <label>
@@ -54,7 +52,7 @@ const NoteSection: React.FC = () => {
             <Icon name="remark"/>
             备注：
           </span>
-        <input type="text" placeholder="在这里输入备注" defaultValue={note} ref={refInput} onBlur={onBlur}/>
+        <input type="text" placeholder="在这里输入备注" value={note} onChange={(e)=>props.onChange(e.target.value)}/>
       </label>
     </Wrapper>
   );

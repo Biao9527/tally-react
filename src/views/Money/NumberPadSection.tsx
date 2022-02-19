@@ -1,43 +1,51 @@
 import React, {useState} from 'react';
 import {NumberWrapper} from './NumberPadSection/NumberWrapper';
 
-const NumberPadSection: React.FC = () => {
-  const [input, setInput] = useState('0');
+type Props = {
+  value: number
+  onChange: (amount: number) => void
+}
+const NumberPadSection: React.FC<Props> = (props) => {
+  const output = props.value.toString();
+  const [_output, set_output] = useState(output);
   const onClickNumberWrapper = (e: React.MouseEvent) => {
     const buttonText = (e.target as HTMLButtonElement).textContent;
     if (buttonText === null) {
       return;
     }
-    if (input.length < 16) {
+    if (_output.length < 16) {
       if ('0123456789'.indexOf(buttonText) >= 0) {
-        if (input === '0') {
-          setInput(buttonText);
+        if (_output === '0') {
+          set_output(buttonText);
         } else {
-          setInput(input + buttonText);
+          set_output(_output + buttonText);
         }
       }
       if (buttonText === '.') {
-        if (input.indexOf('.') >= 0) {
+        if (_output.indexOf('.') >= 0) {
           return;
         } else {
-          setInput(input + buttonText);
+          set_output(_output + buttonText);
         }
       }
     }
     if (buttonText === '删除') {
-      if (input.length === 1) {
-        setInput('0');
+      if (_output.length === 1) {
+        set_output('0');
       } else {
-        setInput(input.slice(0, -1));
+        set_output(_output.slice(0, -1));
       }
     }
     if (buttonText === '清空') {
-      setInput('0');
+      set_output('0');
+    }
+    if (buttonText === 'OK') {
+      props.onChange(parseFloat(_output));
     }
   };
   return (
     <NumberWrapper>
-      <div className="number">{input}</div>
+      <div className="number">{_output}</div>
       <div className="buttons clearFix" onClick={onClickNumberWrapper}>
         <button>1</button>
         <button>2</button>

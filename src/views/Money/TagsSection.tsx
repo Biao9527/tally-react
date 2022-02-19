@@ -41,10 +41,13 @@ const Wrapper = styled.section`
   }
 `;
 
-const TagsSection: React.FC = () => {
+type Props = {
+  value:string[]
+  onChange: (strings: string[])=>void
+}
+const TagsSection: React.FC<Props> = (props) => {
   const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行']);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
+  const selectedTags = props.value
   const addTag = () => {
     const tagName = window.prompt();
 
@@ -65,9 +68,9 @@ const TagsSection: React.FC = () => {
   };
   const onToggleTag = (tag: string) => {
     if (selectedTags.indexOf(tag) >= 0) {
-      setSelectedTags(selectedTags.filter(t => t !== tag));
+      props.onChange(selectedTags.filter(t => t !== tag));
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      props.onChange([...selectedTags, tag]);
     }
   };
 
