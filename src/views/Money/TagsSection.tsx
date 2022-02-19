@@ -21,7 +21,8 @@ const Wrapper = styled.section`
       padding: 0 16px;
       margin-right: 10px;
       margin-top: 4px;
-      &.selected{
+
+      &.selected {
         background: #FF6200;
       }
     }
@@ -40,31 +41,35 @@ const Wrapper = styled.section`
   }
 `;
 
-const TagsSection:React.FC = ()=>{
-  const [tags,setTags] = useState<string[]>(['衣','食','住','行'])
-  const [selectedTags,setSelectedTags] = useState<string[]>([])
+const TagsSection: React.FC = () => {
+  const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行']);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const addTag = ()=>{
-    const tagName = window.prompt()
-    if (tagName){
-      if (tagName.length>5){
-        window.alert('标签名过长')
-      }else if (tags.indexOf(tagName)>=0){
-        window.alert('标签名重复')
+  const addTag = () => {
+    const tagName = window.prompt();
+
+    if (tagName !== null) {
+      if (tagName.length > 5) {
+        window.alert('标签名过长');
+        return
+      } else if (tags.indexOf(tagName) >= 0) {
+        window.alert('标签名重复');
+        return;
+      } if (tagName === '') {
+        window.alert('标签名不能为空');
+        return;
       }else {
-        setTags([...tags,tagName])
+        setTags([...tags, tagName]);
       }
-    }else {
-      window.alert('标签名不能为空')
     }
-  }
-  const onToggleTag = (tag:string)=>{
-    if (selectedTags.indexOf(tag)>=0){
-      setSelectedTags(selectedTags.filter(t => t!== tag))
-    }else {
-      setSelectedTags([...selectedTags,tag])
+  };
+  const onToggleTag = (tag: string) => {
+    if (selectedTags.indexOf(tag) >= 0) {
+      setSelectedTags(selectedTags.filter(t => t !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
     }
-  }
+  };
 
   return (
     <Wrapper>
@@ -74,12 +79,12 @@ const TagsSection:React.FC = ()=>{
       <ul>
         {tags.map(tag =>
           <li key={tag}
-              onClick={()=>onToggleTag(tag)}
-              className={selectedTags.indexOf(tag)>=0 ? 'selected':''}
+              onClick={() => onToggleTag(tag)}
+              className={selectedTags.indexOf(tag) >= 0 ? 'selected' : ''}
           >{tag}</li>)}
       </ul>
     </Wrapper>
-  )
-}
+  );
+};
 
-export {TagsSection}
+export {TagsSection};
