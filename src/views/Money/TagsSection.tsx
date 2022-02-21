@@ -43,8 +43,8 @@ const Wrapper = styled.section`
 `;
 
 type Props = {
-  value:string[]
-  onChange: (strings: string[])=>void
+  value:number[]
+  onChange: (tagId: number[])=>void
 }
 const TagsSection: React.FC<Props> = (props) => {
   const {tags,setTags} = useTags()
@@ -56,22 +56,22 @@ const TagsSection: React.FC<Props> = (props) => {
       if (tagName.length > 5) {
         window.alert('标签名过长');
         return
-      } else if (tags.indexOf(tagName) >= 0) {
+      } else if (tags.map(tagName => tagName.name).indexOf(tagName) >= 0) {
         window.alert('标签名重复');
         return;
       } if (tagName === '') {
         window.alert('标签名不能为空');
         return;
       }else {
-        setTags([...tags, tagName]);
+        setTags([...tags, {id:Math.random(),name:tagName}]);
       }
     }
   };
-  const onToggleTag = (tag: string) => {
-    if (selectedTags.indexOf(tag) >= 0) {
-      props.onChange(selectedTags.filter(t => t !== tag));
+  const onToggleTag = (tagId: number) => {
+    if (selectedTags.indexOf(tagId) >= 0) {
+      props.onChange(selectedTags.filter(t => t !== tagId));
     } else {
-      props.onChange([...selectedTags, tag]);
+      props.onChange([...selectedTags, tagId]);
     }
   };
 
@@ -82,10 +82,10 @@ const TagsSection: React.FC<Props> = (props) => {
       </div>
       <ul>
         {tags.map(tag =>
-          <li key={tag}
-              onClick={() => onToggleTag(tag)}
-              className={selectedTags.indexOf(tag) >= 0 ? 'selected' : ''}
-          >{tag}</li>)}
+          <li key={tag.id}
+              onClick={() => onToggleTag(tag.id)}
+              className={selectedTags.indexOf(tag.id) >= 0 ? 'selected' : ''}
+          >{tag.name}</li>)}
       </ul>
     </Wrapper>
   );
