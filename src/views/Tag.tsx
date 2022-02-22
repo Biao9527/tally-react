@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate , useParams} from 'react-router-dom';
 import {useTags} from '../useTags';
 import Layout from '../components/Layout';
 import styled from 'styled-components';
@@ -17,12 +17,13 @@ const Header = styled.header`
   color: #f0e0dc;
   background: #ff6200;
   padding: 0 10px;
-  >.icon{
+
+  > .icon {
     width: 30px;
     height: 30px;
     fill: #f0e0dc;
   }
-`
+`;
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -31,40 +32,44 @@ const InputWrapper = styled.div`
   padding: 0 16px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
-`
+`;
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 44px;
-`
+`;
 type Params = {
   id: string
 }
 const Tag: React.FC = () => {
-  const {findTag,updateTag} = useTags();
+  const {findTag, updateTag, deleteTag} = useTags();
   const {id} = useParams<Params>();
   const tag = findTag(parseInt(id!));
+  const navigate = useNavigate();
   return (
     <Layout>
       <Header>
-        <Icon name='left'/>
+        <Icon name="left"/>
         <span>编辑标签</span>
-        <Icon name='finish'/>
+        <Icon name="finish"/>
       </Header>
-      <InputWrapper>
-        <Input
-          label='标签名'
-          type='text'
-          placeholder='标签名'
-          value={tag.name}
-          onChange={(e)=>{
-            updateTag(tag.id,{name:e.target.value})
-          }}
-        />
-        </InputWrapper>
-        <ButtonWrapper>
-          <Button>删除标签</Button>
-        </ButtonWrapper>
+          <InputWrapper>
+            <Input
+              label="标签名"
+              type="text"
+              placeholder="标签名"
+              value={tag.name}
+              onChange={(e) => {
+                updateTag(tag.id, {name: e.target.value});
+              }}
+            />
+          </InputWrapper>
+          <ButtonWrapper>
+            <Button onClick={() => {
+              deleteTag(tag.id)
+              navigate('/tags')
+            }}>删除标签</Button>
+          </ButtonWrapper>
     </Layout>
   );
 };
