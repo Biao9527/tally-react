@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NumberWrapper} from './NumberPadSection/NumberWrapper';
 
 type Props = {
   value: number
   onChange: (amount: number) => void
+  onOK:()=>void
 }
 const NumberPadSection: React.FC<Props> = (props) => {
   const output = props.value.toString();
   const [_output, set_output] = useState(output);
+  useEffect(()=>{
+    props.onChange(parseFloat(_output));
+  },[_output])
   const onClickNumberWrapper = (e: React.MouseEvent) => {
     const buttonText = (e.target as HTMLButtonElement).textContent;
     if (buttonText === null) {
@@ -40,7 +44,8 @@ const NumberPadSection: React.FC<Props> = (props) => {
       set_output('0');
     }
     if (buttonText === 'OK') {
-      props.onChange(parseFloat(_output));
+      props.onOK()
+      set_output('0')
     }
   };
   return (
