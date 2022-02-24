@@ -1,12 +1,11 @@
 import React from 'react';
-import {useNavigate , useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useTags} from '../useTags';
 import Layout from '../components/Layout';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import {Input} from '../components/Input';
 import {Button} from '../components/Button';
-import {TODO} from 'mini-css-extract-plugin';
 
 const Header = styled.header`
   display: flex;
@@ -43,10 +42,10 @@ type Params = {
   id: string
 }
 const Tag: React.FC = () => {
-  const {findTag, updateTag, deleteTag} = useTags();
-  const {id} = useParams<Params>();
-  const tag = findTag(parseInt(id!));
   const navigate = useNavigate();
+  const {findTag, updateTag, deleteTag} = useTags();
+  const {id:idString} = useParams<Params>();
+  const tag = findTag(parseInt(idString!)) || {id:-1,name:''};
   const onClickBack = ()=>{
     navigate('/tags')
   }
@@ -74,7 +73,6 @@ const Tag: React.FC = () => {
           <ButtonWrapper>
             <Button onClick={() => {
               deleteTag(tag.id)
-              navigate('/tags')
             }}>删除标签</Button>
           </ButtonWrapper>
     </Layout>

@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   margin-top: 44px;
 `;
 const Tags = () => {
-  const {tags} = useTags();
+  const {tags,addTag} = useTags();
   return (
     <Layout>
       <TagList>
@@ -49,7 +49,7 @@ const Tags = () => {
           </li>)}
       </TagList>
       <Wrapper>
-        <Button>新建标签</Button>
+        <Button onClick={addTag}>新建标签</Button>
       </Wrapper>
     </Layout>
   );

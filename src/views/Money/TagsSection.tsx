@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
 import {useTags} from '../../useTags';
-import {createId} from '../../lib/createId';
 
 const Wrapper = styled.section`
   font-size: 14px;
@@ -48,26 +47,8 @@ type Props = {
   onChange: (tagId: number[])=>void
 }
 const TagsSection: React.FC<Props> = (props) => {
-  const {tags,setTags} = useTags()
+  const {tags,addTag} = useTags()
   const selectedTags = props.value
-  const addTag = () => {
-    const tagName = window.prompt();
-
-    if (tagName !== null) {
-      if (tagName.length > 5) {
-        window.alert('标签名过长');
-        return
-      } else if (tags.map(tagName => tagName.name).indexOf(tagName) >= 0) {
-        window.alert('标签名重复');
-        return;
-      } if (tagName === '') {
-        window.alert('标签名不能为空');
-        return;
-      }else {
-        setTags([...tags, {id:createId(),name:tagName}]);
-      }
-    }
-  };
   const onToggleTag = (tagId: number) => {
     if (selectedTags.indexOf(tagId) >= 0) {
       props.onChange(selectedTags.filter(t => t !== tagId));
