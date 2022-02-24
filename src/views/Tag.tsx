@@ -1,11 +1,11 @@
-import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {useTags} from '../useTags';
+import {useTags} from '../hooks/useTags';
 import Layout from '../components/Layout';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import {Input} from '../components/Input';
 import {Button} from '../components/Button';
+import React from 'react';
 
 const Header = styled.header`
   display: flex;
@@ -49,15 +49,12 @@ const Tag: React.FC = () => {
   const onClickBack = ()=>{
     navigate('/tags')
   }
-  const finish = ()=>{
-    console.log(111);
-  }
   return (
     <Layout>
       <Header>
         <Icon name="left" onClick={onClickBack}/>
         <span>编辑标签</span>
-        <Icon name="finish" onClick={finish}/>
+        <Icon name="" />
       </Header>
           <InputWrapper>
             <Input
@@ -66,7 +63,12 @@ const Tag: React.FC = () => {
               placeholder="标签名"
               value={tag.name}
               onChange={(e) => {
-                updateTag(tag.id, {name: e.target.value});
+                const newText = e.target.value
+                if (newText.length<6){
+                  updateTag(tag.id, {name: e.target.value});
+                }else {
+                  window.alert('标签名过长')
+                }
               }}
             />
           </InputWrapper>
