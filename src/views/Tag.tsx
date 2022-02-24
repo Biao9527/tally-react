@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Icon from '../components/Icon';
 import {Input} from '../components/Input';
 import {Button} from '../components/Button';
+import {TODO} from 'mini-css-extract-plugin';
 
 const Header = styled.header`
   display: flex;
@@ -46,12 +47,18 @@ const Tag: React.FC = () => {
   const {id} = useParams<Params>();
   const tag = findTag(parseInt(id!));
   const navigate = useNavigate();
+  const onClickBack = ()=>{
+    navigate('/tags')
+  }
+  const finish = ()=>{
+    console.log(111);
+  }
   return (
     <Layout>
       <Header>
-        <Icon name="left"/>
+        <Icon name="left" onClick={onClickBack}/>
         <span>编辑标签</span>
-        <Icon name="finish"/>
+        <Icon name="finish" onClick={finish}/>
       </Header>
           <InputWrapper>
             <Input
