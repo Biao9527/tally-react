@@ -7,6 +7,7 @@ import {useTags} from '../hooks/useTags';
 import day from 'dayjs';
 import {Tab} from '../components/Tab';
 import {beautifyDay} from '../lib/beautifyDay';
+import Page from '../components/Chart';
 
 const Item = styled.div`
   > h3 {
@@ -88,7 +89,7 @@ const Statistics = () => {
           })}
       </>
       )}else if (tabType==='chart'){
-        return (<div>chart</div>)
+        return <Page/>
       }
     }else {
       return (<div className='notFound'>暂无数据</div>)
