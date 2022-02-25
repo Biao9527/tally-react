@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import {RecordItem, useRecords} from '../hooks/useRecords';
 import {useTags} from '../hooks/useTags';
 import day from 'dayjs';
-import dayjs from 'dayjs';
 import {Tab} from '../components/Tab';
 import {beautifyDay} from '../lib/beautifyDay';
 
