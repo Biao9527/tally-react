@@ -32,6 +32,7 @@ const Money = () => {
   }
   return (
     <MyLayout>
+      {selected.amount}
       <CategorySection
         value={selected.category}
         onChange={(category)=> onChange({category})}

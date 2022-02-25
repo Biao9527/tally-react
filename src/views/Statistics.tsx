@@ -9,12 +9,13 @@ import {Tab} from '../components/Tab';
 import {beautifyDay} from '../lib/beautifyDay';
 
 const Item = styled.div`
-  >h3{
+  > h3 {
     padding: 6px 16px;
     font-size: 18px;
     background: #ff852a;
     color: #f2f2f2;
   }
+
   > .result {
     min-height: 38px;
     background: #ffffff;
@@ -23,6 +24,7 @@ const Item = styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #f2f2f2;
+
     > .note {
       margin-right: auto;
       margin-left: 16px;
@@ -31,7 +33,7 @@ const Item = styled.div`
   }
 `;
 const List = styled.div`
-  margin-top: 20px
+  margin-top: 20px;
 `;
 
 const Statistics = () => {
@@ -41,7 +43,7 @@ const Statistics = () => {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const selectedCategory = records.filter(r => r.category === category);
   const hash: { [K: string]: RecordItem[] } = {};
-  selectedCategory.map(r => {
+  selectedCategory.forEach(r => {
     const key = day(r.createdAt).format('YYYY-MM-DD');
     if (!(key in hash)) {
       hash[key] = [];
