@@ -34,6 +34,10 @@ const Item = styled.div`
 `;
 const List = styled.div`
   margin-top: 20px;
+  >.notFound{
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const Statistics = () => {
@@ -62,6 +66,34 @@ const Statistics = () => {
     if (a < b) return 1;
     return 0;
   });
+  const showList = (array:[x:string,y:RecordItem[]][])=>{
+    if (array.length>0){
+      if (tabType === 'list'){
+      return (
+        <>
+          {array.map(x => {
+            return (<Item key={x[0]}>
+              <h3>{beautifyDay(x[0])}</h3>
+              {x[1].map(r => {
+                return <div className="result" key={r.createdAt}>
+        <span>{r.tagIds.length > 1 ?
+          r.tagIds.map(t => <span key={t}>{getName(t) + ' '}</span>) :
+          r.tagIds.map(t => <span key={t}>{getName(t)}</span>)}
+        </span>
+                  <span className="note">备注：{r.note ? r.note : '无'}</span>
+                  <span>{category + '￥' + r.amount}</span>
+                </div>;
+              })}
+            </Item>);
+          })}
+      </>
+      )}else if (tabType==='chart'){
+        return (<div>chart</div>)
+      }
+    }else {
+      return (<div className='notFound'>暂无数据</div>)
+    }
+  }
 
   return (
     <Layout>
@@ -80,21 +112,7 @@ const Statistics = () => {
         </ul>
       </Tab>
       <List>
-        {array.map(x => {
-          return (<Item key={x[0]}>
-            <h3>{beautifyDay(x[0])}</h3>
-            {x[1].map(r => {
-              return <div className="result" key={r.createdAt}>
-            <span>{r.tagIds.length > 1 ?
-              r.tagIds.map(t => <span key={t}>{getName(t) + ' '}</span>) :
-              r.tagIds.map(t => <span key={t}>{getName(t)}</span>)}
-            </span>
-                <span className="note">备注：{r.note ? r.note : '无'}</span>
-                <span>{category + '￥' + r.amount}</span>
-              </div>;
-            })}
-          </Item>);
-        })}
+        {showList(array)}
       </List>
     </Layout>
   );
