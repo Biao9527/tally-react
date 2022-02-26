@@ -26,7 +26,6 @@ const Page: React.FC<Props> = (props) => {
       array.push({value:sum,name:tags[i].name})
     }
   const newArray = array.filter(i => i.value !== 0)
-  console.log(newArray);
   const options = {
     tooltip: {
       trigger: 'item',

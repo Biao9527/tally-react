@@ -56,7 +56,7 @@ const useTags = () => {
   }
   const getName = (id:number) => {
     const tag = tags.filter(tag=>tag.id === id)[0]
-    return tag ? tag.name : ''
+    return tag ? tag.name : false
   }
   return {tags,getName, setTags, addTag,findTag,findTagIndex,updateTag,deleteTag};
 };
