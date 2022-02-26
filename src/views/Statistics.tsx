@@ -84,7 +84,7 @@ const Statistics = () => {
                         r.tagIds.map(t => <span key={t}>{getName(t)}</span>)}
                       </span>
                       <span className="note">备注：{r.note ? r.note : '无'}</span>
-                      <span>{category + '￥' + r.amount}</span>
+                      <span>{category + '￥' + (r.amount)}</span>
                     </div>)
                   }else {
                     return null
