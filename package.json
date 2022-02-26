@@ -1,6 +1,7 @@
 {
   "name": "tally-react",
   "version": "0.1.0",
+  "homepage": "https://biao9527.github.io/tally-react-website/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
