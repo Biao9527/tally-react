@@ -23,7 +23,7 @@ const Page: React.FC<Props> = (props) => {
         });
         if(a){sum+=a}
       }
-      array.push({value:parseFloat(sum.toFixed(2)),name:tags[i].name})
+      array.push({value:Math.floor(sum * 100) / 100,name:tags[i].name})
     }
   const newArray = array.filter(i => i.value !== 0)
   const options = {
