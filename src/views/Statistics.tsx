@@ -89,7 +89,7 @@ const Statistics = () => {
           })}
       </>
       )}else if (tabType==='chart'){
-        return <Page/>
+        return <Page category={category}/>
       }
     }else {
       return (<div className='notFound'>暂无数据</div>)

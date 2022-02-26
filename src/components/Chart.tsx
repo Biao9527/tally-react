@@ -1,7 +1,32 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
+import {useRecords} from '../hooks/useRecords';
+import {useTags} from '../hooks/useTags';
 
-const Page: React.FC = () => {
+type Props = {
+  category: '-' | '+'
+}
+const Page: React.FC<Props> = (props) => {
+  const {records} = useRecords();
+  const {tags} = useTags();
+  const selectedCategory = records.filter(r => props.category === r.category);
+  const array = []
+    for (let i = 0; i < tags.length; i++) {
+      let sum = 0
+      for (let j = 0; j < selectedCategory.length; j++) {
+        let a = 0
+        selectedCategory[j].tagIds.forEach(id => {
+          if (id === tags[i].id) {
+            a= selectedCategory[j].amount;
+          }
+          return a
+        });
+        if(a){sum+=a}
+      }
+      array.push({value:sum,name:tags[i].name})
+    }
+  const newArray = array.filter(i => i.value !== 0)
+  console.log(newArray);
   const options = {
     tooltip: {
       trigger: 'item',
@@ -15,7 +40,7 @@ const Page: React.FC = () => {
         name: '',
         type: 'pie',
         radius: ['40%', '70%'],
-        center:['50%','40%'],
+        center: ['50%', '40%'],
         avoidLabelOverlap: false,
         label: {
           show: false,
@@ -31,18 +56,16 @@ const Page: React.FC = () => {
         labelLine: {
           show: false
         },
-        data: [
-          { value: 1048, name: '衣' },
-          { value: 735, name: '食' },
-          { value: 580, name: '住' },
-          { value: 484, name: '行' },
-          { value: 300, name: '工资' }
-        ]
+        data: newArray
       }
     ]
   };
 
-  return <ReactECharts option={options} style={{ height: 400}} />;
+  return (
+    <>
+      <ReactECharts option={options} style={{height: 400}}/>
+    </>
+  );
 };
 
 export default Page;
