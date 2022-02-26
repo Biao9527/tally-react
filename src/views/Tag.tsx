@@ -74,7 +74,14 @@ const Tag: React.FC = () => {
           </InputWrapper>
           <ButtonWrapper>
             <Button onClick={() => {
-              deleteTag(tag.id)
+              alert('注意：删除标签后，相关统计数据也会被删除！')
+              if (window.confirm(`确定删除 “${tag.name}” 标签吗？`)) {
+                deleteTag(tag.id)
+                setTimeout(()=>{
+                  navigate('/tags')
+                },0)
+              }
+
             }}>删除标签</Button>
           </ButtonWrapper>
     </Layout>
